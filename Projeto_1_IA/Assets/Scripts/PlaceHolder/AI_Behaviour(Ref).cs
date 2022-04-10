@@ -1,3 +1,10 @@
+/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at http://mozilla.org/MPL/2.0/.
+ *
+ * Author: Nuno Fachada
+ * */
+
 using UnityEngine;
 using LibGameAI.DecisionTrees;
 
@@ -12,15 +19,33 @@ public class AIBehaviour : WaypointCycler
     [SerializeField]
     private float minWaypointDist = 0.5f;
 
+    // Player in sight distance
+    [SerializeField]
+    private float playerInSightDistance = 10f;
+
     // Random decision duration
     [SerializeField]
     private float randomDecisionDurationInSeconds = 1.5f;
+
+    // References the player
+    private GameObject player;
+
+    // Reference the WTF object for when AI is surprised
+    private GameObject wtf;
 
     // The root of the decision tree
     private IDecisionTreeNode root;
 
     // The last target acquired
     private Vector3 lastTargetAcquired = Vector3.zero;
+
+    // Get reference to the agent's rigid body, the player and the wtf object
+    private void Awake()
+    {
+        player = GameObject.Find("PlayerAgent");
+        wtf = transform.GetChild(0).gameObject;
+        wtf.SetActive(false);
+    }
 
     // Create the decision tree
     protected override void Start()
@@ -29,10 +54,9 @@ public class AIBehaviour : WaypointCycler
         base.Start();
 
         // Create the leaf actions
-        IDecisionTreeNode InDanger= new ActionNode(SeekAction);
-        IDecisionTreeNode Tired = new ActionNode(StandStillAction);
-        IDecisionTreeNode Hungry = new ActionNode(PatrolAction);
-        IDecisionTreeNode Normal = new ActionNode(PatrolAction);
+        IDecisionTreeNode seek = new ActionNode(SeekAction);
+        IDecisionTreeNode nothing = new ActionNode(StandStillAction);
+        IDecisionTreeNode patrol = new ActionNode(PatrolAction);
 
         // Create the random decision behaviour node
         RandomDecisionBehaviour rdb = new RandomDecisionBehaviour(

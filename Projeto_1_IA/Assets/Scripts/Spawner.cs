@@ -15,11 +15,13 @@ public class Spawner : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {   
-        if(Time.time - timer > 1)
+    {   While (timer <= 200)
         {
+            if(Time.time - timer > 1)
+            {
             Instantiate(AI_Agent, transform.position, Quaternion.identity);
             timer = Time.time;
+            }
         }
         
     }
