@@ -1,4 +1,4 @@
-using LibGameAI.DecisionTrees
+using LibGameAI.DecisionTrees;
 using UnityEngine;
 
 public class Behaviour : MonoBehaviour
@@ -16,6 +16,11 @@ public class Behaviour : MonoBehaviour
     //The root of the decision tree
     private IDecisionTreeNode root;
 
+    private void Awake()
+    {
+        
+    }
+
     //Create decision tree
     protected override void Start()
     {
@@ -24,9 +29,12 @@ public class Behaviour : MonoBehaviour
 
         //Create the leaf actions
         IDecisionTreeNode InDanger     = new ActionNode(InDangerAction);
-        IDecisionTreeNode float Tired  = new ActionNode(TiredAction);
-        IDecisionTreeNode float Hungry = new ActionNode(HungrydAction);
-        IDecisionTreeNode float Normal = new ActionNode(NormalAction);
+        IDecisionTreeNode Tired        = new ActionNode(TiredAction);
+        IDecisionTreeNode Hungry       = new ActionNode(HungrydAction);
+        IDecisionTreeNode Normal       = new ActionNode(NormalAction);
+
+        RandomDecisionBehaviour rdb = new RandomDecisionBehaviour(
+            () = > )
 
         root = new DecisionNodeNode(InDanger, Tired, Hungry, Normal)
 
@@ -51,6 +59,7 @@ public class Behaviour : MonoBehaviour
     private bool InDangerAction()
     {
         //Pseudo-code: If (Bomb == true), run to exit zone
+        return true;
     }
     
     //Check if AI_Agent is Tired
