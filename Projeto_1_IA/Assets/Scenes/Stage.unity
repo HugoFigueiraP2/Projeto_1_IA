@@ -167,6 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9aa402b7deb07f40be16ef7e80ca960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destinations: []
 --- !u!4 &18451475
 Transform:
   m_ObjectHideFlags: 0
@@ -322,6 +323,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9aa402b7deb07f40be16ef7e80ca960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destinations: []
 --- !u!4 &203091346
 Transform:
   m_ObjectHideFlags: 0
@@ -739,7 +741,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4eb95bfa049daf49ae39311a259903f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destiny: {fileID: 1732355111}
+  normal_destiny: {fileID: 655428163}
+  bar_destiny: {fileID: 18451475}
+  greenZone_destiny: {fileID: 203091346}
+  speed: 5
 --- !u!195 &356397755
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1028,7 +1033,7 @@ GameObject:
   - component: {fileID: 655428162}
   - component: {fileID: 655428161}
   m_Layer: 0
-  m_Name: Bar_1 (1)
+  m_Name: Stage_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1060,6 +1065,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9aa402b7deb07f40be16ef7e80ca960, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  destinations: []
 --- !u!4 &655428163
 Transform:
   m_ObjectHideFlags: 0

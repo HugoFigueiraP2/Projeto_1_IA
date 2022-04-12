@@ -12,8 +12,16 @@ public class NPC_AI_One : MonoBehaviour
     [SerializeField] private Transform greenZone_destiny;
 
     //AI Agent Status
+    [SerializeField]
+    [Range(0, 10)]
     private int health = 10;
+
+    [SerializeField]
+    [Range(0, 10)]
     private int food = 10;
+
+    [SerializeField]
+    [Range(0, 10)]
     private int stamina = 10;
 
     //Speed of AI agent movement
@@ -31,7 +39,7 @@ public class NPC_AI_One : MonoBehaviour
     void Start()
     {
         npc = GetComponent<NavMeshAgent>();
-        npc.SetDestination(normal_destiny.position);
+        //npc.SetDestination(normal_destiny.position);
 
         //Create the leaf actions
         IDecisionTreeNode InDanger = new ActionNode(InDangerAction);
@@ -39,10 +47,8 @@ public class NPC_AI_One : MonoBehaviour
         IDecisionTreeNode Hungry = new ActionNode(HungryAction);
         IDecisionTreeNode Normal = new ActionNode(NormalAction);
 
-        //RandomDecisionBehaviour rdb = new RandomDecisionBehaviour(
-           // () = > )
-
-        root = new DecisionNode(InDanger, Tired, Hungry, Normal);
+        // Create the root node
+        root = new DecisionNode(InDanger,Tired, Hungry, Normal);
     }
 
     //Update is called once per frame
@@ -58,10 +64,10 @@ public class NPC_AI_One : MonoBehaviour
         if (stamina <= 2)
         {
             // go to waypoint (GreenZone)
-            NextWaypoint();
+            npc.SetDestination(greenZone_destiny.position);
         }
 
-        MoveTowardsTarget(CurrentWaypoint);
+       
     }
 
     //Check if AI_Agent is Hungry
@@ -70,28 +76,26 @@ public class NPC_AI_One : MonoBehaviour
         if (food <= 2)
         {
             // go to waypoint (Bar)
-            NextWaypoint();
+            npc.SetDestination(bar_destiny.position);
         }
 
-        MoveTowardsTarget(CurrentWaypoint);
     }
 
     //Check if AI_Agent is normal
     private void NormalAction()
     {
-        //go to waypoint (Stage)
-        MoveTowardsTarget(CurrentWaypoint);
+        
+        if (stamina > 2 && food > 2)
+        npc.SetDestination(normal_destiny.position);
     }
 
     //Check if AI_Agent is in danger
-    private void InDangerAction()
-    {
+
+   private void InDangerAction()
+   {
         //if agent in danger, go to exit (Stage)
-        MoveTowardsTarget(CurrentWaypoint);
-    }
-
-    MoveTowardsTarget(CurrentWaypoint);
-
+       // MoveTowardsTarget(CurrentWaypoint);
+   }
     private void OnTriggerEnter(Collider col)
     {
         if (col.name == "Destiny")
