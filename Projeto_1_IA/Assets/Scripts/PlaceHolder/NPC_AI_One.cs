@@ -32,6 +32,10 @@ public class NPC_AI_One : MonoBehaviour
     //Decision Tree root
     private IDecisionTreeNode root;
 
+    private IDecisionTreeNode second_branch;
+
+    private IDecisionTreeNode third_branch;
+
     private NavMeshAgent npc;
     private int rnd;
 
@@ -39,7 +43,7 @@ public class NPC_AI_One : MonoBehaviour
     void Start()
     {
         npc = GetComponent<NavMeshAgent>();
-        //npc.SetDestination(normal_destiny.position);
+        npc.SetDestination(normal_destiny.position);
 
         //Create the leaf actions
         IDecisionTreeNode InDanger = new ActionNode(InDangerAction);
@@ -48,36 +52,43 @@ public class NPC_AI_One : MonoBehaviour
         IDecisionTreeNode Normal = new ActionNode(NormalAction);
 
         // Create the root node
-        root = new DecisionNode(InDanger,Tired, Hungry, Normal);
+        // root = new DecisionNode (Danger,InDanger, Hungry);
+        second_branch = new DecisionNode(HungryState,Hungry,third_branch);
+        third_branch = new DecisionNode(TiredState, Tired, Normal);
     }
 
     //Update is called once per frame
     private void Update()
     {
-        ActionNode actionNode = root.MakeDecision() as ActionNode;
+        ActionNode actionNode = second_branch.MakeDecision() as ActionNode;
         actionNode.Execute();
     }
 
     //Check if AI_Agent is Tired
+    private bool TiredState()
+    {
+        if (stamina <= 2) return true;
+        return false;
+    }
+
     private void TiredAction()
     {
-        if (stamina <= 2)
-        {
-            // go to waypoint (GreenZone)
-            npc.SetDestination(greenZone_destiny.position);
-        }
-
-       
+        // go to waypoint (GreenZone)
+        npc.SetDestination(greenZone_destiny.position);
     }
 
     //Check if AI_Agent is Hungry
+    private bool HungryState()
+    {
+        if (food <= 2) return true;
+        return false;
+     
+    }
+
     private void HungryAction()
     {
-        if (food <= 2)
-        {
-            // go to waypoint (Bar)
-            npc.SetDestination(bar_destiny.position);
-        }
+        // go to waypoint (Bar)
+        npc.SetDestination(bar_destiny.position);
 
     }
 
@@ -96,19 +107,19 @@ public class NPC_AI_One : MonoBehaviour
         //if agent in danger, go to exit (Stage)
        // MoveTowardsTarget(CurrentWaypoint);
    }
-    private void OnTriggerEnter(Collider col)
-    {
-        if (col.name == "Destiny")
-        {
-            rnd = Random.Range(0, 5);
-            Invoke("Destination", rnd);
-        }
-    }
+   // private void OnTriggerEnter(Collider col)
+   // {
+   //     if (col.name == "Destiny")
+   //     {
+   //         rnd = Random.Range(0, 5);
+   //         Invoke("Destination", rnd);
+    //    }
+    //}
 
-    private void Destination()
-    {
-        npc.SetDestination(normal_destiny.position);
-    }
+   // private void Destination()
+    //{
+    //    npc.SetDestination(normal_destiny.position);
+    //}
 }
 
 
