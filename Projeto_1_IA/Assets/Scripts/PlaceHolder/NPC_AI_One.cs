@@ -37,13 +37,17 @@ public class NPC_AI_One : MonoBehaviour
     private IDecisionTreeNode third_branch;
 
     private NavMeshAgent npc;
-    private int rnd;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    //private int rnd;
+    private void Awake()
     {
         npc = GetComponent<NavMeshAgent>();
         npc.SetDestination(normal_destiny.position);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
 
         //Create the leaf actions
         IDecisionTreeNode InDanger = new ActionNode(InDangerAction);
@@ -62,6 +66,7 @@ public class NPC_AI_One : MonoBehaviour
     {
         ActionNode actionNode = second_branch.MakeDecision() as ActionNode;
         actionNode.Execute();
+
     }
 
     //Check if AI_Agent is Tired
