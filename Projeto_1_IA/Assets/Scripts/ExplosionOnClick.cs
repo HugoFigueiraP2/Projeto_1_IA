@@ -1,28 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class ExplosionOnClick : MonoBehaviour
 {
-    [SerializeField] private GameObject target;
-    private GameObject explosion;
-    Vector3 mouse;
-    float x, y;
+    [SerializeField] GameObject target = null;
+    private Camera cam = null;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        cam = Camera.main;
     }
 
     // Update is called once per frame
     void Update()
     {
-        mouse.x = Input.mousePosition.x;
-        x = mouse.x;
-        mouse.y = Input.mousePosition.y;
-        y = mouse.y;
-        if (Input.GetMouseButtonDown(0))
-            explosion = Instantiate(target, new Vector3(x, y, 0), Quaternion.identity);
+        if(Mouse.current.leftButton.wasPressedThisFrame)
+        {
+            Ray ray = cam.ScreenPointToRay(Mouse.current.position.ReadValue());
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                Instantiate(target, new Vector3(hit.point.x, hit.point.y + target.transform.position.y, hit.point.z), Quaternion.identity);
+            }
+        }
     }
 }
