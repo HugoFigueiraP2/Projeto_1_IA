@@ -32,7 +32,7 @@ public class NPC_AI_One : MonoBehaviour
     //Decision Tree root
     private IDecisionTreeNode root;
 
-    private IDecisionTreeNode second_branch;
+    //private IDecisionTreeNode second_branch;
 
     private IDecisionTreeNode third_branch;
 
@@ -50,21 +50,23 @@ public class NPC_AI_One : MonoBehaviour
         
 
         //Create the leaf actions
-        IDecisionTreeNode InDanger = new ActionNode(InDangerAction);
+        //IDecisionTreeNode InDanger = new ActionNode(InDangerAction);
         IDecisionTreeNode Tired = new ActionNode(TiredAction);
         IDecisionTreeNode Hungry = new ActionNode(HungryAction);
         IDecisionTreeNode Normal = new ActionNode(NormalAction);
 
         // Create the root node
         // root = new DecisionNode (Danger,InDanger, Hungry);
-        second_branch = new DecisionNode(HungryState,Hungry,third_branch);
         third_branch = new DecisionNode(TiredState, Tired, Normal);
+
+        root = new DecisionNode(HungryState,Hungry,third_branch);
+        
     }
 
     //Update is called once per frame
     private void Update()
     {
-        ActionNode actionNode = second_branch.MakeDecision() as ActionNode;
+        ActionNode actionNode = root.MakeDecision() as ActionNode;
         actionNode.Execute();
 
     }
