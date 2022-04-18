@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class DestroyAgents : MonoBehaviour
 {
-    public GameObject agent;
+    [SerializeField] private GameObject go;
+    private GameObject target;
+
+    private void Start()
+    {
+        target = Instantiate(go);
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(agent);
+        Destroy(GameObject.FindGameObjectWithTag("Cube"));
     }
 }

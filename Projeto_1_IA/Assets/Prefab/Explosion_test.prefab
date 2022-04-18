@@ -11,10 +11,10 @@ GameObject:
   - component: {fileID: 2743620479371811436}
   - component: {fileID: 5931634219124966825}
   - component: {fileID: 7425871435424317966}
-  - component: {fileID: 7807322712787483324}
+  - component: {fileID: 1694493200391032392}
   m_Layer: 0
   m_Name: Explosion_test
-  m_TagString: Untagged
+  m_TagString: Explosion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -66,7 +66,7 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7807322712787483324
+--- !u!114 &1694493200391032392
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -78,7 +78,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b470c546cd02dd54eb35de3ffcd774cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  agent: {fileID: 3359839157820826337, guid: 176bb2fbd76c3a54db76bba71624e81e, type: 3}
+  go: {fileID: 7793600718308297921, guid: bfdcbeb6b525ccd47b1acb0fdd5b2e0f, type: 3}
 --- !u!1 &5410756450709868732
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +126,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -4990,7 +4990,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
@@ -9854,7 +9854,7 @@ ParticleSystem:
   ringBufferMode: 0
   ringBufferLoopRange: {x: 0, y: 1}
   emitterVelocityMode: 1
-  looping: 1
+  looping: 0
   prewarm: 0
   playOnAwake: 1
   useUnscaledTime: 0
