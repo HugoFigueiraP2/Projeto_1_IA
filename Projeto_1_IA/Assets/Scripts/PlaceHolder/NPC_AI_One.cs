@@ -82,6 +82,8 @@ public class NPC_AI_One : MonoBehaviour
     {
         // go to waypoint (GreenZone)
         npc.SetDestination(greenZone_destiny.position);
+
+        speed = 4;
     }
 
     //Check if AI_Agent is Hungry
